@@ -1,11 +1,21 @@
+# Build using the Ubuntu Nixpacks image that has OpenSSL 3.0.X installed
 buildImage = "ghcr.io/railwayapp/nixpacks:ubuntu-1670971384"
 
 [phases.setup]
 nixPkgs = ["...", "openssl"]
 
+# Use the latest version of Nixpkgs. 
+# This isn't necessary, but means that Openssl 3 will be used
+nixpkgsArchive = "ffca9ffaaafb38c8979068cee98b2644bd3f14cb"
+
 [phases.generate]
 dependsOn = ["setup", "install"]
 cmds = ["cargo prisma generate"]
+cacheDirectories = [
+    '/root/.cargo/git',
+    '/root/.cargo/registry',
+    'target',
+]
 
 [phases.build]
 dependsOn = ["generate", "..."]
@@ -13,3 +23,8 @@ dependsOn = ["generate", "..."]
 [phases.migrate]
 dependsOn = ["generate", "build"]
 cmds = ["cargo prisma migrate deploy"]
+cacheDirectories = [
+    '/root/.cargo/git',
+    '/root/.cargo/registry',
+    'target',
+]
