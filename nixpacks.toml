@@ -8,7 +8,7 @@ dependsOn = ["setup", "install"]
 cmds = ["cargo prisma generate"]
 
 [phases.build]
-dependsOn = ["generate"]
+dependsOn = ["generate", "..."]
 
 [phases.migrate]
 dependsOn = ["generate", "build"]
