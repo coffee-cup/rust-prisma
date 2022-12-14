@@ -1,0 +1,15 @@
+buildImage = "ghcr.io/railwayapp/nixpacks:ubuntu-1670971384"
+
+[phases.setup]
+nixPkgs = ["...", "openssl"]
+
+[phases.generate]
+dependsOn = ["setup", "install"]
+cmds = ["cargo prisma generate"]
+
+[phases.build]
+dependsOn = ["generate"]
+
+[phases.migrate]
+dependsOn = ["generate", "build"]
+cmds = ["cargo prisma migrate deploy"]

@@ -1,0 +1,14 @@
+[package]
+name = "rust-prisma"
+version = "0.1.0"
+edition = "2021"
+default-run = "rust-prisma"
+
+[alias]
+prisma = "run --bin <prisma binary name> --"
+
+[dependencies]
+prisma-client-rust = { git = "https://github.com/Brendonovich/prisma-client-rust", tag = "0.6.3", default-features = false, features = ["postgresql"] }
+prisma-client-rust-cli = { git = "https://github.com/Brendonovich/prisma-client-rust", tag = "0.6.3", default-features = false, features = ["postgresql"] }
+serde = { version = "1.0.150", features = ["derive"] }
+tokio = "1.23.0"
